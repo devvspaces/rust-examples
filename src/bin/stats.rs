@@ -1,15 +1,15 @@
-use rand::Rng;
 use std::collections::HashMap;
+use example::util::generate_numbers;
 
 fn main() {
-    let mut arr = generate_array(100);
+    let mut arr = generate_numbers(100);
     arr.sort();
     println!("This is the array: {arr:?}");
     println!("This is the median: {}", median(&arr).unwrap_or(0.0));
     println!("This is the mode: {}", mode(&arr).unwrap_or(&0));
 }
 
-fn median(n: &Vec<u32>) -> Option<f32> {
+fn median(n: &Vec<u64>) -> Option<f32> {
     if n.len() == 0 {
         return None;
     }
@@ -21,9 +21,9 @@ fn median(n: &Vec<u32>) -> Option<f32> {
     }
 }
 
-fn mode(n: &Vec<u32>) -> Option<&u32> {
+fn mode(n: &Vec<u64>) -> Option<&u64> {
     let mut map = HashMap::new();
-    let mut largest: Option<&u32> = None;
+    let mut largest: Option<&u64> = None;
     let mut cur = 0;
     for x in n {
         let count = map.entry(x).or_insert(0);
@@ -40,10 +40,4 @@ fn mode(n: &Vec<u32>) -> Option<&u32> {
     largest
 }
 
-fn generate_array(n: usize) -> Vec<u32> {
-    let mut x: Vec<u32> = Vec::with_capacity(n);
-    for _ in 0..n {
-        x.push(rand::rng().random_range(0..100))
-    }
-    x
-}
+
